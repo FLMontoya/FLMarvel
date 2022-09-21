@@ -70,4 +70,10 @@ class MarvelService @Inject constructor() {
             put("hash", hash)
         }
     }
+
+    fun <SERVICE> createService(serviceClass: Class<SERVICE>): SERVICE {
+        return retrofit.create(serviceClass)
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.android.marvel.data.service
 
+import com.android.marvel.data.dto.character.CharacterResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,7 +12,7 @@ interface CharacterService {
     suspend fun getCharacters(
         @Query("offset") offset: Int? = null,
         @Query("limit") limit: Int? = null
-    ): Single<ResponseCharacter>
+    ): Single<CharacterResponse>
 
 
 
