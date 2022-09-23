@@ -1,7 +1,7 @@
 package com.android.marvel.data.dto.character
 
 
-import com.android.marvel.domain.model.CharacterModel
+import com.android.marvel.domain.model.Character
 import com.google.gson.annotations.SerializedName
 
 data class DataDto(
@@ -12,12 +12,14 @@ data class DataDto(
     @SerializedName("results") val characters: List<CharacterDto>
 )
 
-fun Collection<CharacterDto>.toCharacterModel(): List<CharacterModel> {
+fun Collection<CharacterDto>.toCharacterModel(): List<Character> {
     return this.map { characterDto ->
-        CharacterModel(
+        Character(
             characterDto.id,
             characterDto.name,
-            characterDto.description
+            characterDto.description,
+            characterDto.thumbnail.path,
+            characterDto.thumbnail.extension
         )
     }
 }

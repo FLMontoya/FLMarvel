@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.android.marvel.databinding.RowCharacterBinding
-import com.android.marvel.domain.model.CharacterModel
+import com.android.marvel.domain.model.Character
 import com.android.marvel.presentation.character.CharacterFragment
 
 
 
 class CharacterAdapter(private val characterListerner: CharacterFragment.CharacterListerner) :
-    PagingDataAdapter<CharacterModel, CharacterViewHolder>(DiffUtilCallBack()) {
+    PagingDataAdapter<Character, CharacterViewHolder>(DiffUtilCallBack()) {
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         getItem(position)?.let {
@@ -26,12 +26,12 @@ class CharacterAdapter(private val characterListerner: CharacterFragment.Charact
         return CharacterViewHolder(rowCharacterBinding, characterListerner)
     }
 
-    class DiffUtilCallBack : DiffUtil.ItemCallback<CharacterModel>() {
-        override fun areItemsTheSame(oldItem: CharacterModel, newItem: CharacterModel): Boolean {
+    class DiffUtilCallBack : DiffUtil.ItemCallback<Character>() {
+        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: CharacterModel, newItem: CharacterModel): Boolean {
+        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
             return oldItem.id == newItem.id
         }
     }

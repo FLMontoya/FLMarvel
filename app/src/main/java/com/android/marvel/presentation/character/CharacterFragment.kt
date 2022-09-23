@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.marvel.databinding.FragmentCharacterBinding
-import com.android.marvel.domain.model.CharacterModel
+import com.android.marvel.domain.model.Character
 import com.android.marvel.presentation.character.adapter.CharacterAdapter
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,8 +36,8 @@ class CharacterFragment : Fragment() {
 
         context?.let {
             val characterAdapter = CharacterAdapter(object : CharacterListerner {
-                override fun onClick(characterModel: CharacterModel) {
-                    navigateToCharacterDetailFragment(characterModel)
+                override fun onClick(character: Character) {
+                    navigateToCharacterDetailFragment(character)
                 }
             })
             val characterLayoutManager = GridLayoutManager(it, 3)
@@ -51,7 +51,7 @@ class CharacterFragment : Fragment() {
         }
     }
 
-    private fun navigateToCharacterDetailFragment(characterModel: CharacterModel) {
+    private fun navigateToCharacterDetailFragment(character: Character) {
         /*activity?.let {
             val argument = Bundle()
             argument.putParcelable(CharacterModel::class.java.name, characterModel)
@@ -66,7 +66,7 @@ class CharacterFragment : Fragment() {
 
     interface CharacterListerner {
 
-        fun onClick(characterModel: CharacterModel)
+        fun onClick(character: Character)
 
     }
 
