@@ -1,11 +1,7 @@
 package com.android.marvel.di
 
-import com.android.marvel.data.datasource.RemoteDataSource
-import com.android.marvel.data.datasource.impl.RemoteDataSourceImpl
+import com.android.marvel.data.remote.RemoteData
 import com.android.marvel.data.repository.DataRepository
-import com.android.marvel.data.repository.impl.DataRepositoryImpl
-import com.android.marvel.data.service.MarvelService
-import com.android.marvel.domain.CharactersPagingUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +14,7 @@ class ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun getCharactersPagingUseCase(dataRepository: DataRepositoryImpl) =
-        CharactersPagingUseCase(dataRepository)
+    fun dataRepositoryProvider(remoteData: RemoteData) = DataRepository(remoteData)
+
 
 }

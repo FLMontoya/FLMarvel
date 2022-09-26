@@ -1,9 +1,10 @@
-package com.android.marvel.domain
+package com.android.marvel.iu.common
 
+import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
 
-abstract class MarvelPagingUseCase<T : Any> : RxPagingSource<Int, T>() {
+abstract class MarvelPagingSource<T : Any> : PagingSource<Int, T>() {
 
     override fun getRefreshKey(state: PagingState<Int, T>): Int? {
         return state.anchorPosition

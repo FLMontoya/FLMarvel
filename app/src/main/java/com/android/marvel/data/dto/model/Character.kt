@@ -1,4 +1,4 @@
-package com.android.marvel.domain.model
+package com.android.marvel.data.dto.model
 
 data class Character(
     val id: Int,

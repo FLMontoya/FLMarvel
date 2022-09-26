@@ -1,4 +1,4 @@
-package com.android.marvel.data.service
+package com.android.marvel.data.remote.service
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -32,6 +32,7 @@ class MarvelService @Inject constructor() {
         val client = OkHttpClient.Builder()
             .addInterceptor(logger)
             .addInterceptor(getAuthQueryInterceptor())
+
             .build()
         return Retrofit.Builder()
             .client(client)

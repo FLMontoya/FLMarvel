@@ -1,4 +1,4 @@
-package com.android.marvel.presentation.character
+package com.android.marvel.iu.character
 
 
 import android.os.Bundle
@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.marvel.databinding.FragmentCharacterBinding
-import com.android.marvel.domain.model.Character
-import com.android.marvel.presentation.character.adapter.CharacterAdapter
+import com.android.marvel.data.dto.model.Character
+import com.android.marvel.iu.character.adapter.CharacterAdapter
 
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -40,12 +42,15 @@ class CharacterFragment : Fragment() {
                     navigateToCharacterDetailFragment(character)
                 }
             })
-            val characterLayoutManager = GridLayoutManager(it, 3)
+            val characterLayoutManager = LinearLayoutManager(it, LinearLayoutManager.VERTICAL, false)
             binding.characterRecyclerView.apply {
                 layoutManager = characterLayoutManager
                 adapter = characterAdapter
             }
-            mDisposable.add(characterViewModel.getCharacters().subscribe { pagingData ->
+            /*mDisposable.add(characterViewModel.getCharacters().subscribe { pagingData ->
+                characterAdapter.submitData(lifecycle, pagingData)
+            })*/
+            characterViewModel.getCharacters().observe(viewLifecycleOwner, Observer {pagingData ->
                 characterAdapter.submitData(lifecycle, pagingData)
             })
         }

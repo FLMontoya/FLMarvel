@@ -1,9 +1,9 @@
-package com.android.marvel.presentation
+package com.android.marvel.iu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.android.marvel.R
-import com.android.marvel.presentation.character.CharacterFragment
+import com.android.marvel.iu.character.CharacterFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

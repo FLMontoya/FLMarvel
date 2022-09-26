@@ -1,7 +1,7 @@
 package com.android.marvel.data.dto.character
 
 
-import com.android.marvel.domain.model.Character
+import com.android.marvel.data.dto.model.Character
 import com.google.gson.annotations.SerializedName
 
 data class DataDto(
