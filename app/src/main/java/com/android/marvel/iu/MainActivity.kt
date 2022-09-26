@@ -2,6 +2,7 @@ package com.android.marvel.iu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import com.android.marvel.R
 import com.android.marvel.iu.character.CharacterFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -11,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 
     override fun onResume() {
