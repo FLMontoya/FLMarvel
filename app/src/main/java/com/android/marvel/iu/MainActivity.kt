@@ -1,8 +1,7 @@
 package com.android.marvel.iu
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import com.android.marvel.R
 import com.android.marvel.iu.character.CharacterFragment
 import dagger.hilt.android.AndroidEntryPoint

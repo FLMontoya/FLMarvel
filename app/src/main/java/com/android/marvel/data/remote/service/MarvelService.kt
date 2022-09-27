@@ -11,7 +11,7 @@ import java.security.MessageDigest
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val baseUrl = "http://gateway.marvel.com"
+private const val baseUrl = "http://gateway.marvel.com/v1/public/"
 private const val publicKey = "6423a8f3425880101d292761eba17c25"
 private const val privateKey = "32683f37ce287a0ee4b3fc8f9f0d9f47039c5fae"
 

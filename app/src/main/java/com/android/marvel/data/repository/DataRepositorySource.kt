@@ -1,11 +1,15 @@
 package com.android.marvel.data.repository
 
-import com.android.marvel.data.dto.model.Character
-import dagger.Provides
-import io.reactivex.Single
+import androidx.paging.PagingData
+import com.android.marvel.model.Character
+import com.android.marvel.model.DetailItem
+import kotlinx.coroutines.flow.Flow
 
 interface DataRepositorySource {
 
-    suspend fun requestCharacters(page: Int, size: Int): List<Character>
+    fun searchCharacters(query: String): Flow<PagingData<Character>>
 
+    fun getCharacterComics(characterId: String): Flow<PagingData<DetailItem>>
+    fun getCharacterSeries(characterId: String): Flow<PagingData<DetailItem>>
+    fun getCharacterEvents(characterId: String): Flow<PagingData<DetailItem>>
 }

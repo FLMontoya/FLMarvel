@@ -1,9 +1,7 @@
 package com.android.marvel.di
 
 import com.android.marvel.data.remote.RemoteData
-import com.android.marvel.data.repository.DataRepository
 import com.android.marvel.data.remote.service.MarvelService
-import com.android.marvel.iu.character.CharacterPaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +18,4 @@ class DataModule {
     @Provides
     fun serviceProvider() = MarvelService()
 
-    @Provides
-    fun characterPagingSourceProvider(dataRepository: DataRepository) =
-        CharacterPaging(dataRepository)
 }
