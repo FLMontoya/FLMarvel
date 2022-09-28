@@ -13,10 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.marvel.R
 import com.android.marvel.databinding.FragmentCharacterBinding
@@ -90,6 +92,12 @@ class CharacterFragment : Fragment() {
                     navigateToCharacterDetailFragment(character)
                 }
             })
+            characterAdapter.addLoadStateListener { loadState ->
+                binding.apply {
+                    progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    characterRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                }
+            }
             val characterLayoutManager = GridLayoutManager(it, 2)
             binding.characterRecyclerView.apply {
                 layoutManager = characterLayoutManager
@@ -105,10 +113,7 @@ class CharacterFragment : Fragment() {
 
     private fun navigateToCharacterDetailFragment(character: Character) {
         activity?.let {
-            val argument = Bundle()
-            argument.putParcelable(Character::class.java.name, character)
-            val characterDetailFragment = CharacterDetailFragment()
-            characterDetailFragment.arguments = argument
+            val characterDetailFragment = CharacterDetailFragment(character.id)
             it.supportFragmentManager.beginTransaction()
                 .replace(R.id.flContainer, characterDetailFragment)
                 .addToBackStack(CharacterDetailFragment::class.java.name)

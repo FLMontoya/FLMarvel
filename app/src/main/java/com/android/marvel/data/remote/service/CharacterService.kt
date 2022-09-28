@@ -10,6 +10,13 @@ import retrofit2.http.Query
 
 interface CharacterService {
 
+    @GET("characters/{characterId}")
+    suspend fun getCharacterById(
+        @Path("characterId") characterId: String,
+        @Query("offset") offset: Int? = null,
+        @Query("limit") limit: Int? = null
+    ): CharacterResponseDto
+
     @GET("characters")
     suspend fun getCharacters(
         @Query("offset") offset: Int? = null,

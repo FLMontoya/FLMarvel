@@ -29,7 +29,7 @@
                 app:layout_collapseMode="pin">
 
                 <ImageView
-                    android:id="@+id/characterBackground"
+                    android:id="@+id/imageBackground"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     android:adjustViewBounds="true"
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@drawable/description_gradient"
-                    app:layout_constraintBottom_toBottomOf="@id/characterBackground" />
+                    app:layout_constraintBottom_toBottomOf="@id/imageBackground" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,12 +75,12 @@
 
 
             <LinearLayout
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
-
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -93,9 +93,15 @@
                     android:layout_height="wrap_content" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/characterDescription"
+                    android:id="@+id/descriptionTextView"
                     android:layout_marginTop="5dp"
                     android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+                    android:paddingTop="20dp"
+                    android:id="@+id/flContainerCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

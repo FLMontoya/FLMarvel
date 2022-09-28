@@ -21,10 +21,7 @@ data class ComicDto(
     val isbn: String,
 
     @SerializedName("description")
-    val description: String,
-
-    @SerializedName("variants")
-    val variants: List<Any?>,
+    val description: String? = "",
 
     @SerializedName("title")
     val title: String,
@@ -41,9 +38,6 @@ data class ComicDto(
     @SerializedName("ean")
     val ean: String,
 
-    @SerializedName("collections")
-    val collections: List<Any?>,
-
     @SerializedName("modified")
     val modified: String,
 
@@ -56,23 +50,14 @@ data class ComicDto(
     @SerializedName("events")
     val eventsSummaryDto: EventsSummaryDto,
 
-    @SerializedName("collectedIssues")
-    val collectedIssues: List<Any?>,
-
     @SerializedName("pageCount")
     val pageCount: Int,
 
     @SerializedName("thumbnail")
     val thumbnailDto: ThumbnailDto,
 
-    @SerializedName("images")
-    val images: List<Any?>,
-
     @SerializedName("stories")
     val storiesSummaryDto: StoriesSummaryDto,
-
-    @SerializedName("textObjects")
-    val textObjects: List<TextObjects>,
 
     @SerializedName("digitalId")
     val digitalId: Int,
@@ -82,9 +67,6 @@ data class ComicDto(
 
     @SerializedName("upc")
     val upc: String,
-
-    @SerializedName("dates")
-    val dates: List<Dates>,
 
     @SerializedName("resourceURI")
     val resourceURI: String,
@@ -99,40 +81,11 @@ data class ComicDto(
     val seriesSummaryDto: SeriesSummaryDto
 )
 
-data class Images(
-
-    @SerializedName("path")
-    val path: String,
-
-    @SerializedName("extension")
-    val extension: String
-)
 
 data class Prices(
 
     @SerializedName("price")
     val price: Double,
-
-    @SerializedName("type")
-    val type: String
-)
-
-data class Dates(
-
-    @SerializedName("date")
-    val date: String,
-
-    @SerializedName("type")
-    val type: String
-)
-
-data class TextObjects(
-
-    @SerializedName("language")
-    val language: String,
-
-    @SerializedName("text")
-    val text: String,
 
     @SerializedName("type")
     val type: String

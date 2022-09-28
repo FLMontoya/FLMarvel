@@ -1,14 +1,10 @@
 package com.android.marvel.iu.character.detail
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.lifecycle.liveData
+import androidx.lifecycle.switchMap
 import com.android.marvel.data.repository.DataRepository
-import com.android.marvel.model.Character
-import com.android.marvel.model.DetailItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -16,41 +12,28 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(private val dataRepository: DataRepository) : ViewModel() {
 
-    private lateinit var character: Character
-
-
-    fun saveMarvelCharacterModel(character: Character) {
-        this.character = character
+    private var characterIdLiveData = MutableLiveData<Int>()
+    fun setCharacterId(characterId: Int) {
+        characterIdLiveData.value = characterId
     }
 
-    fun getMarvelCharacterModel() = character
-
-    fun getCharacterComics(): LiveData<PagingData<DetailItem>> {
-        return dataRepository.getCharacterComics(character.id.toString()).asLiveData().cachedIn(viewModelScope)
+    private val character = characterIdLiveData.switchMap {
+        liveData { emit(dataRepository.getCharacter(it)) }
     }
 
-    fun getCharacterSeries(): LiveData<PagingData<DetailItem>> {
-        return dataRepository.getCharacterSeries(character.id.toString()).asLiveData().cachedIn(viewModelScope)
+    val characterComics = characterIdLiveData.switchMap {
+        dataRepository.getCharacterComics(it)
     }
 
-    fun getCharacterEvents(): LiveData<PagingData<DetailItem>> {
-        return dataRepository.getCharacterEvents(character.id.toString()).asLiveData().cachedIn(viewModelScope)
+    val characterSeries = characterIdLiveData.switchMap {
+        dataRepository.getCharacterSeries(it)
     }
 
-    /*
-    fun getComics(): Flowable<PagingData<ComicModel>> {
-        return comicInteractor.getComics(characterModel)
+    val characterEvents = characterIdLiveData.switchMap {
+        dataRepository.getCharacterEvents(it)
     }
 
-    fun getSeries(): Flowable<PagingData<SerieModel>> {
-        return serieInteractor.getSeries(characterModel)
-    }
-
-    fun getEvents(): Flowable<PagingData<EventModel>> {
-        return eventInteractor.getEvents(characterModel)
-    }
-    */
-
+    fun getCharacter() = character
 
 }
 
