@@ -2,7 +2,7 @@ package com.android.marvel.data.dto.character
 
 import com.android.marvel.data.dto.ComicsSummaryDto
 import com.android.marvel.data.dto.EventsSummaryDto
-import com.android.marvel.data.dto.MarvelUrlDto
+import com.android.marvel.data.dto.UrlDto
 import com.android.marvel.data.dto.SeriesSummaryDto
 import com.android.marvel.data.dto.StoriesSummaryDto
 import com.android.marvel.data.dto.ThumbnailDto
@@ -34,5 +34,5 @@ data class CharacterDto(
     @SerializedName("events")
     val eventsSummaryDto: EventsSummaryDto,
     @SerializedName("urls")
-    val urlDtoList: List<MarvelUrlDto>
+    val urlDtoList: List<UrlDto>
 )

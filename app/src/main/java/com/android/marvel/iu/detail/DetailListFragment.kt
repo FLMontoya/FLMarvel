@@ -1,4 +1,4 @@
-package com.android.marvel.iu
+package com.android.marvel.iu.detail
 
 import android.os.Bundle
 import android.view.View
@@ -9,12 +9,12 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.marvel.R
 import com.android.marvel.databinding.FragmentDetailListBinding
-import com.android.marvel.iu.character.detail.CharacterDetailFragment
-import com.android.marvel.iu.comic.ComicDetailFragment
-import com.android.marvel.model.DetailItem
-import com.android.marvel.model.DetailItemType
+import com.android.marvel.iu.detail.character.detail.CharacterDetailFragment
+import com.android.marvel.iu.detail.comic.ComicDetailFragment
+import com.android.marvel.model.MarvelItem
+import com.android.marvel.model.MarvelItemType
 
-abstract class DetailListFragment(private val detailItemType: DetailItemType) :
+abstract class DetailListFragment(private val marvelItemType: MarvelItemType) :
     Fragment(R.layout.fragment_detail_list) {
 
     private var _binding: FragmentDetailListBinding? = null
@@ -26,7 +26,7 @@ abstract class DetailListFragment(private val detailItemType: DetailItemType) :
 
     }
 
-    abstract fun getDetailListLiveDataPaging(): LiveData<PagingData<DetailItem>>?
+    abstract fun getDetailListLiveDataPaging(): LiveData<PagingData<MarvelItem>>?
 
     override fun onResume() {
         super.onResume()
@@ -35,11 +35,11 @@ abstract class DetailListFragment(private val detailItemType: DetailItemType) :
     }
 
     private fun loadDetailItemList() {
-        binding.titleTextView.text = detailItemType.getTitle()
+        binding.titleTextView.text = marvelItemType.getTitle()
         context?.let {
             val detailListAdapter = DetailListAdapter(object : DetailItemListerner {
-                override fun onClick(detailItem: DetailItem) {
-                    navigateToDetailItem(detailItem)
+                override fun onClick(marvelItem: MarvelItem) {
+                    navigateToDetailItem(marvelItem)
                 }
             })
 
@@ -56,23 +56,23 @@ abstract class DetailListFragment(private val detailItemType: DetailItemType) :
     }
 
 
-    private fun navigateToDetailItem(detailItem: DetailItem) {
+    private fun navigateToDetailItem(marvelItem: MarvelItem) {
 
-        when (detailItem.detailItemType) {
-            DetailItemType.COMIC -> {
+        when (marvelItem.marvelItemType) {
+            MarvelItemType.COMIC -> {
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, ComicDetailFragment(detailItem.id))
+                    ?.replace(R.id.flContainer, ComicDetailFragment(marvelItem.id))
                     ?.addToBackStack(ComicDetailFragment::class.java.name)?.commit()
             }
-            DetailItemType.SERIE -> {
+            MarvelItemType.SERIE -> {
 
             }
-            DetailItemType.EVENT -> {
+            MarvelItemType.EVENT -> {
 
             }
-            DetailItemType.CHARACTER -> {
+            MarvelItemType.CHARACTER -> {
                 activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, CharacterDetailFragment(detailItem.id))
+                    ?.replace(R.id.flContainer, CharacterDetailFragment(marvelItem.id))
                     ?.addToBackStack(CharacterDetailFragment::class.java.name)?.commit()
             }
         }
@@ -80,7 +80,7 @@ abstract class DetailListFragment(private val detailItemType: DetailItemType) :
 
     interface DetailItemListerner {
 
-        fun onClick(detailItem: DetailItem)
+        fun onClick(marvelItem: MarvelItem)
 
     }
 }

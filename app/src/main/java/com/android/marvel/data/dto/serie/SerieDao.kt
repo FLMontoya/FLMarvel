@@ -4,7 +4,7 @@ import com.android.marvel.data.dto.CharacterSummaryDto
 import com.android.marvel.data.dto.ComicsSummaryDto
 import com.android.marvel.data.dto.CreatorsSummaryDto
 import com.android.marvel.data.dto.EventsSummaryDto
-import com.android.marvel.data.dto.MarvelUrlDto
+import com.android.marvel.data.dto.UrlDto
 import com.android.marvel.data.dto.NextDto
 import com.android.marvel.data.dto.PreviousDto
 import com.android.marvel.data.dto.StoriesSummaryDto
@@ -18,7 +18,7 @@ data class SerieDao(
     @SerializedName("title") val title: String,
     @SerializedName("description") val description: String,
     @SerializedName("resourceURI") val resourceURI: String,
-    @SerializedName("urls") val urlDtos: ArrayList<MarvelUrlDto>,
+    @SerializedName("urls") val urlDtos: ArrayList<UrlDto>,
     @SerializedName("startYear") val startYear: String,
     @SerializedName("endYear") val endYear: String,
     @SerializedName("rating") val rating: String,

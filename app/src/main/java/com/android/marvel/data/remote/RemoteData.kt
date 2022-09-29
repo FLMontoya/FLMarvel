@@ -4,10 +4,8 @@ import com.android.marvel.data.dto.character.toCharacterModel
 import com.android.marvel.data.dto.character.toDetailItem
 import com.android.marvel.data.dto.comic.toDetailItem
 import com.android.marvel.data.dto.comic.toModel
-
 import com.android.marvel.data.dto.event.toDetailItem
 import com.android.marvel.data.dto.event.toModel
-
 import com.android.marvel.data.dto.serie.toDetailItem
 import com.android.marvel.data.remote.service.CharacterService
 import com.android.marvel.data.remote.service.ComicService
@@ -15,10 +13,8 @@ import com.android.marvel.data.remote.service.EventService
 import com.android.marvel.data.remote.service.MarvelService
 import com.android.marvel.model.Character
 import com.android.marvel.model.Comic
-
-import com.android.marvel.model.DetailItem
 import com.android.marvel.model.Event
-
+import com.android.marvel.model.MarvelItem
 import javax.inject.Inject
 
 class RemoteData @Inject constructor(
@@ -34,30 +30,30 @@ class RemoteData @Inject constructor(
     /**
      * CHARACTERS
      */
-    override suspend fun requestCharacters(page: Int, size: Int, query: String?): List<Character> {
+    override suspend fun requestCharacters(page: Int, size: Int, query: String?): List<MarvelItem> {
         val characterService = marvelService.createService(CharacterService::class.java)
         return if (query.isNullOrEmpty()) {
             characterService.getCharacters(page, size)
-                .dataDto.results.toCharacterModel()
+                .dataDto.results.toDetailItem()
         } else {
             characterService.searchCharacter(query, page, size)
-                .dataDto.results.toCharacterModel()
+                .dataDto.results.toDetailItem()
         }
     }
 
-    override suspend fun requestCharacterComic(characterId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestCharacterComic(characterId: Int, page: Int, size: Int): List<MarvelItem> {
         val characterService = marvelService.createService(CharacterService::class.java)
         return characterService.getCharacterComics(characterId.toString(), page, size)
             .dataDto.results.toDetailItem()
     }
 
-    override suspend fun requestCharacterSerie(characterId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestCharacterSerie(characterId: Int, page: Int, size: Int): List<MarvelItem> {
         val characterService = marvelService.createService(CharacterService::class.java)
         return characterService.getCharacterSeries(characterId.toString(), page, size)
             .dataDto.results.toDetailItem()
     }
 
-    override suspend fun requestCharacterEvent(characterId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestCharacterEvent(characterId: Int, page: Int, size: Int): List<MarvelItem> {
         val characterService = marvelService.createService(CharacterService::class.java)
         return characterService.getCharacterEvents(characterId.toString(), page, size)
             .dataDto.results.toDetailItem()
@@ -72,13 +68,24 @@ class RemoteData @Inject constructor(
             .dataDto.results.toModel().first()
     }
 
-    override suspend fun requestComicCharacter(comicId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestComics(page: Int, size: Int, query: String?): List<MarvelItem> {
+        marvelService.createService(ComicService::class.java).apply {
+            return if (query.isNullOrEmpty()) {
+                getComics(page, size).dataDto.results.toDetailItem()
+            } else {
+                searchComics(query, page, size)
+                    .dataDto.results.toDetailItem()
+            }
+        }
+    }
+
+    override suspend fun requestComicCharacter(comicId: Int, page: Int, size: Int): List<MarvelItem> {
         val comicService = marvelService.createService(ComicService::class.java)
         return comicService.getComicCharacters(comicId.toString(), page, size)
             .dataDto.results.toDetailItem()
     }
 
-    override suspend fun requestComicEvent(comicId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestComicEvent(comicId: Int, page: Int, size: Int): List<MarvelItem> {
         val comicService = marvelService.createService(ComicService::class.java)
         return comicService.getComicEvents(comicId.toString(), page, size)
             .dataDto.results.toDetailItem()
@@ -90,13 +97,13 @@ class RemoteData @Inject constructor(
             .dataDto.results.toModel().first()
     }
 
-    override suspend fun requestEventCharacter(eventId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestEventCharacter(eventId: Int, page: Int, size: Int): List<MarvelItem> {
         return marvelService.createService(EventService::class.java)
             .getEventCharacters(eventId.toString(), page, size)
             .dataDto.results.toDetailItem()
     }
 
-    override suspend fun requestEventComic(eventId: Int, page: Int, size: Int): List<DetailItem> {
+    override suspend fun requestEventComic(eventId: Int, page: Int, size: Int): List<MarvelItem> {
         return marvelService.createService(EventService::class.java)
             .getEventComic(eventId.toString(), page, size)
             .dataDto.results.toDetailItem()

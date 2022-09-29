@@ -1,18 +1,17 @@
-package com.android.marvel.iu
+package com.android.marvel.iu.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.android.marvel.R
 import com.android.marvel.databinding.RowDetailBinding
-import com.android.marvel.model.DetailItem
+import com.android.marvel.model.MarvelItem
 import com.squareup.picasso.Picasso
 
 
 class DetailListAdapter(private val detailItemListerner: DetailListFragment.DetailItemListerner) :
-    PagingDataAdapter<DetailItem, DetailItemViewHolder>(DiffUtilCallBack()) {
+    PagingDataAdapter<MarvelItem, DetailItemViewHolder>(DiffUtilCallBack()) {
 
     override fun onBindViewHolder(holder: DetailItemViewHolder, position: Int) {
         getItem(position)?.let {
@@ -27,12 +26,12 @@ class DetailListAdapter(private val detailItemListerner: DetailListFragment.Deta
         )
     }
 
-    class DiffUtilCallBack : DiffUtil.ItemCallback<DetailItem>() {
-        override fun areItemsTheSame(oldItem: DetailItem, newItem: DetailItem): Boolean {
+    class DiffUtilCallBack : DiffUtil.ItemCallback<MarvelItem>() {
+        override fun areItemsTheSame(oldItem: MarvelItem, newItem: MarvelItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: DetailItem, newItem: DetailItem): Boolean {
+        override fun areContentsTheSame(oldItem: MarvelItem, newItem: MarvelItem): Boolean {
             return oldItem == newItem
         }
     }
@@ -44,11 +43,11 @@ class DetailItemViewHolder(
 ) :
     RecyclerView.ViewHolder(rowDetailBinding.root) {
 
-    fun bind(detailItem: DetailItem) {
-        rowDetailBinding.detailNameTextView.text = detailItem.name
-        Picasso.get().load(detailItem.image).into(rowDetailBinding.detailImageView)
+    fun bind(marvelItem: MarvelItem) {
+        rowDetailBinding.detailNameTextView.text = marvelItem.name
+        Picasso.get().load(marvelItem.image).into(rowDetailBinding.detailImageView)
         rowDetailBinding.root.setOnClickListener {
-            listener.onClick(detailItem)
+            listener.onClick(marvelItem)
         }
     }
 

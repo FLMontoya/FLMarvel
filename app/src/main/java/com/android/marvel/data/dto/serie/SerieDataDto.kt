@@ -1,7 +1,7 @@
 package com.android.marvel.data.dto.serie
 
-import com.android.marvel.model.DetailItem
-import com.android.marvel.model.DetailItemType
+import com.android.marvel.model.MarvelItem
+import com.android.marvel.model.MarvelItemType
 import com.google.gson.annotations.SerializedName
 
 
@@ -22,13 +22,13 @@ data class SerieDataDto(
 
 )
 
-fun Collection<SerieDao>.toDetailItem(): List<DetailItem> {
+fun Collection<SerieDao>.toDetailItem(): List<MarvelItem> {
     return this.map { dto ->
-        DetailItem(
+        MarvelItem(
             dto.id,
             dto.title,
             dto.thumbnailDto.getPortraitUncanny(),
-            DetailItemType.SERIE
+            MarvelItemType.SERIE
         )
     }
 }

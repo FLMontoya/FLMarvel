@@ -1,4 +1,4 @@
-package com.android.marvel.iu.character.detail
+package com.android.marvel.iu.detail.character.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

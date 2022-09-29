@@ -3,7 +3,7 @@ package com.android.marvel.data.dto.comic
 import com.android.marvel.data.dto.CharacterSummaryDto
 import com.android.marvel.data.dto.CreatorsSummaryDto
 import com.android.marvel.data.dto.EventsSummaryDto
-import com.android.marvel.data.dto.MarvelUrlDto
+import com.android.marvel.data.dto.UrlDto
 import com.android.marvel.data.dto.SeriesSummaryDto
 import com.android.marvel.data.dto.StoriesSummaryDto
 import com.android.marvel.data.dto.ThumbnailDto
@@ -33,7 +33,7 @@ data class ComicDto(
     val characterSummaryDto: CharacterSummaryDto,
 
     @SerializedName("urls")
-    val urlDtos: List<MarvelUrlDto>,
+    val urlDtos: List<UrlDto>,
 
     @SerializedName("ean")
     val ean: String,

@@ -1,7 +1,6 @@
-package com.android.marvel.iu.character.detail
+package com.android.marvel.iu.detail.character.detail
 
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -20,14 +19,12 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagingData
 import com.android.marvel.R
 import com.android.marvel.databinding.FragmentCharacterDetailBinding
-import com.android.marvel.iu.DetailListFragment
-
+import com.android.marvel.iu.detail.DetailListFragment
 import com.android.marvel.model.Character
-import com.android.marvel.model.DetailItem
-import com.android.marvel.model.DetailItemType
+import com.android.marvel.model.MarvelItem
+import com.android.marvel.model.MarvelItemType
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 @AndroidEntryPoint
 class CharacterDetailFragment(private val characterId: Int) : Fragment(R.layout.fragment_character_detail),
@@ -80,11 +77,11 @@ class CharacterDetailFragment(private val characterId: Int) : Fragment(R.layout.
     private fun loadCharacterSerieList(character: Character) {
         if(character.seriesCount > 0){
             childFragmentManager.apply {
-                var fragment = findFragmentByTag(DetailItemType.SERIE.getTitle())
+                var fragment = findFragmentByTag(MarvelItemType.SERIE.getTitle())
                 if(fragment == null) {
-                    fragment = CharacterDetailListFragment(DetailItemType.SERIE)
+                    fragment = CharacterDetailListFragment(MarvelItemType.SERIE)
                 }
-                beginTransaction().replace(binding.flContainerSeries.id, fragment, DetailItemType.SERIE.getTitle()).commit()
+                beginTransaction().replace(binding.flContainerSeries.id, fragment, MarvelItemType.SERIE.getTitle()).commit()
             }
         }
     }
@@ -92,11 +89,11 @@ class CharacterDetailFragment(private val characterId: Int) : Fragment(R.layout.
     private fun loadCharacterEventList(character: Character) {
         if(character.eventsCount > 0){
             childFragmentManager.apply {
-                var fragment = findFragmentByTag(DetailItemType.EVENT.getTitle())
+                var fragment = findFragmentByTag(MarvelItemType.EVENT.getTitle())
                 if(fragment == null) {
-                    fragment = CharacterDetailListFragment(DetailItemType.EVENT)
+                    fragment = CharacterDetailListFragment(MarvelItemType.EVENT)
                 }
-                beginTransaction().replace(binding.flContainerEvents.id, fragment, DetailItemType.EVENT.getTitle()).commit()
+                beginTransaction().replace(binding.flContainerEvents.id, fragment, MarvelItemType.EVENT.getTitle()).commit()
             }
         }
     }
@@ -104,11 +101,11 @@ class CharacterDetailFragment(private val characterId: Int) : Fragment(R.layout.
     private fun loadCharacterComicList(character: Character) {
         if(character.comicsCount > 0){
             childFragmentManager.apply {
-                var fragment = findFragmentByTag(DetailItemType.COMIC.getTitle())
+                var fragment = findFragmentByTag(MarvelItemType.COMIC.getTitle())
                 if(fragment == null) {
-                    fragment = CharacterDetailListFragment(DetailItemType.COMIC)
+                    fragment = CharacterDetailListFragment(MarvelItemType.COMIC)
                 }
-                beginTransaction().replace(binding.flContainerComics.id, fragment, DetailItemType.COMIC.getTitle()).commit()
+                beginTransaction().replace(binding.flContainerComics.id, fragment, MarvelItemType.COMIC.getTitle()).commit()
             }
         }
     }
@@ -160,17 +157,17 @@ class CharacterDetailFragment(private val characterId: Int) : Fragment(R.layout.
     }
 }
 
-class CharacterDetailListFragment(private val detailItemType: DetailItemType) :
-    DetailListFragment(detailItemType) {
+class CharacterDetailListFragment(private val marvelItemType: MarvelItemType) :
+    DetailListFragment(marvelItemType) {
 
     private val characterDetailViewModel: CharacterDetailViewModel by viewModels({ requireParentFragment() })
 
-    override fun getDetailListLiveDataPaging(): LiveData<PagingData<DetailItem>>? {
-        return when (detailItemType) {
-            DetailItemType.COMIC -> characterDetailViewModel.characterComics
-            DetailItemType.SERIE -> characterDetailViewModel.characterSeries
-            DetailItemType.EVENT -> characterDetailViewModel.characterEvents
-            DetailItemType.CHARACTER -> null
+    override fun getDetailListLiveDataPaging(): LiveData<PagingData<MarvelItem>>? {
+        return when (marvelItemType) {
+            MarvelItemType.COMIC -> characterDetailViewModel.characterComics
+            MarvelItemType.SERIE -> characterDetailViewModel.characterSeries
+            MarvelItemType.EVENT -> characterDetailViewModel.characterEvents
+            MarvelItemType.CHARACTER -> null
         }
     }
 }

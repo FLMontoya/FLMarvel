@@ -3,7 +3,6 @@ package com.android.marvel.data.remote.service
 import com.android.marvel.data.dto.character.CharacterResponseDto
 import com.android.marvel.data.dto.comic.ComicResponseDto
 import com.android.marvel.data.dto.event.EventResponseDto
-import com.android.marvel.data.dto.serie.SerieResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

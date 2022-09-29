@@ -1,7 +1,7 @@
 package com.android.marvel.data.dto.event
 
-import com.android.marvel.model.DetailItem
-import com.android.marvel.model.DetailItemType
+import com.android.marvel.model.MarvelItem
+import com.android.marvel.model.MarvelItemType
 import com.android.marvel.model.Event
 import com.google.gson.annotations.SerializedName
 
@@ -22,13 +22,13 @@ data class EventDataDto(
     @SerializedName("results") val results: List<EventDto>
 )
 
-fun Collection<EventDto>.toDetailItem(): List<DetailItem> {
+fun Collection<EventDto>.toDetailItem(): List<MarvelItem> {
     return this.map { dto ->
-        DetailItem(
+        MarvelItem(
             dto.id,
             dto.title,
             dto.thumbnailDto.getPortraitUncanny(),
-            DetailItemType.EVENT
+            MarvelItemType.EVENT
         )
     }
 }

@@ -1,8 +1,8 @@
 package com.android.marvel.data.dto.comic
 
 import com.android.marvel.model.Comic
-import com.android.marvel.model.DetailItem
-import com.android.marvel.model.DetailItemType
+import com.android.marvel.model.MarvelItem
+import com.android.marvel.model.MarvelItemType
 import com.google.gson.annotations.SerializedName
 
 data class ComicDataDto(
@@ -23,13 +23,13 @@ data class ComicDataDto(
     val results: List<ComicDto>
 )
 
-fun Collection<ComicDto>.toDetailItem(): List<DetailItem> {
+fun Collection<ComicDto>.toDetailItem(): List<MarvelItem> {
     return this.map { dto ->
-        DetailItem(
+        MarvelItem(
             dto.id,
             dto.title,
             dto.thumbnailDto.getPortraitUncanny(),
-            DetailItemType.COMIC
+            MarvelItemType.COMIC
         )
     }
 }
