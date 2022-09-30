@@ -4,11 +4,11 @@ import com.android.marvel.data.dto.CharacterSummaryDto
 import com.android.marvel.data.dto.ComicsSummaryDto
 import com.android.marvel.data.dto.CreatorsSummaryDto
 import com.android.marvel.data.dto.EventsSummaryDto
-import com.android.marvel.data.dto.UrlDto
 import com.android.marvel.data.dto.NextDto
 import com.android.marvel.data.dto.PreviousDto
 import com.android.marvel.data.dto.StoriesSummaryDto
 import com.android.marvel.data.dto.ThumbnailDto
+import com.android.marvel.data.dto.UrlDto
 import com.google.gson.annotations.SerializedName
 
 
@@ -16,7 +16,7 @@ data class SerieDao(
 
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
-    @SerializedName("description") val description: String,
+    @SerializedName("description") val description: String?,
     @SerializedName("resourceURI") val resourceURI: String,
     @SerializedName("urls") val urlDtos: ArrayList<UrlDto>,
     @SerializedName("startYear") val startYear: String,
@@ -29,7 +29,7 @@ data class SerieDao(
     @SerializedName("events") val eventsSummaryDto: EventsSummaryDto,
     @SerializedName("characters") val characterSummaryDto: CharacterSummaryDto,
     @SerializedName("creators") val creatorsSummaryDto: CreatorsSummaryDto,
-    @SerializedName("next") val nextDto: NextDto,
-    @SerializedName("previous") val previousDto: PreviousDto
+    @SerializedName("next") val nextDto: NextDto?,
+    @SerializedName("previous") val previousDto: PreviousDto?
 
 )

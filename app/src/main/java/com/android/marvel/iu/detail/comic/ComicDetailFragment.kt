@@ -1,143 +1,53 @@
 package com.android.marvel.iu.detail.comic
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagingData
 import com.android.marvel.R
+import com.android.marvel.databinding.ExtraDataComicBinding
 import com.android.marvel.databinding.FragmentComicDetailBinding
 import com.android.marvel.iu.detail.DetailListFragment
+import com.android.marvel.iu.detail.MarvelDetailFragment
 import com.android.marvel.model.Comic
 import com.android.marvel.model.MarvelItem
 import com.android.marvel.model.MarvelItemType
-import com.squareup.picasso.Picasso
+import com.android.marvel.model.MarvelModel
+import com.android.marvel.utils.ImageLoadingUtils
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ComicDetailFragment(private val comicId: Int) : Fragment(R.layout.fragment_comic_detail), MenuProvider {
+class ComicDetailFragment(private val comicId: Int) : MarvelDetailFragment() {
 
     private val comicDetailViewModel: ComicDetailViewModel by viewModels({ this })
-    private var _binding: FragmentComicDetailBinding? = null
-    private val binding get() = _binding!!
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentComicDetailBinding.bind(view)
 
         comicDetailViewModel.setComicId(comicId)
         comicDetailViewModel.getComic().observe(viewLifecycleOwner, Observer { comic ->
-            loadComicInfo(comic)
-            loadComicDetailList(comic)
-            loadToolbar()
-            loadMenu()
+            loadData(comic)
         })
     }
 
-
-
-    private fun loadMenu() {
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    override fun getDetailListFragment(marvelItemType: MarvelItemType): DetailListFragment {
+        return ComicDetailListFragment(marvelItemType)
     }
 
-    private fun loadToolbar() {
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(binding.toolbar)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            supportActionBar?.setDisplayShowHomeEnabled(true)
+    override fun initMarvelModelInfo(marvelModel: MarvelModel) {
+        super.initMarvelModelInfo(marvelModel)
+        val extraBinding = ExtraDataComicBinding.inflate(LayoutInflater.from(context))
+        binding.flContainerExtraData.addView(extraBinding.root)
+        val comic = marvelModel as Comic
+        extraBinding.apply {
+            comicNumPagesTextView.text = "Paginas: " + comic.numPages
+            comicPriceTextView.text = "Precio: " + comic.price
         }
-
-        binding.toolbar.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.popBackStack()
-        }
-    }
-
-    private fun loadComicInfo(comic: Comic) {
-        binding.descriptionTextView.text = comic.description
-        binding.collapser.title = comic.name
-        binding.toolbar.title = comic.name
-        Picasso.get().load(comic.getDetail()).into(binding.imageBackground)
-    }
-
-    private fun loadComicDetailList(comic: Comic) {
-        loadComicCharacterList(comic)
-        loadComicEventList(comic)
-    }
-
-    private fun loadComicEventList(comic: Comic) {
-        if (comic.eventsCount > 0) {
-            childFragmentManager.apply {
-                var fragment = findFragmentByTag(MarvelItemType.EVENT.getTitle())
-                if (fragment == null) {
-                    fragment = ComicDetailListFragment(MarvelItemType.EVENT)
-                }
-                beginTransaction().replace(binding.flContainerEvents.id, fragment, MarvelItemType.EVENT.getTitle())
-                    .commit()
-            }
-        }
-    }
-
-    private fun loadComicCharacterList(comic: Comic) {
-        if (comic.characterCount > 0) {
-            childFragmentManager.apply {
-                var fragment = findFragmentByTag(MarvelItemType.CHARACTER.getTitle())
-                if (fragment == null) {
-                    fragment = ComicDetailListFragment(MarvelItemType.CHARACTER)
-                }
-                beginTransaction().replace(binding.flContainerCharacters.id, fragment, MarvelItemType.CHARACTER.getTitle())
-                    .commit()
-            }
-        }
-    }
-
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.clear()
-        menuInflater.inflate(R.menu.detail_menu, menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when (menuItem.itemId) {
-            R.id.action_details -> {
-                comicDetailViewModel.getComic().observe(viewLifecycleOwner, Observer { comic ->
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(comic.detailLink)
-                    startActivity(intent)
-
-                })
-                true
-            }
-            else -> {
-                false
-            }
-        }
-    }
-
-    override fun onPrepareMenu(menu: Menu) {
-        super.onPrepareMenu(menu)
-        val menuItem = menu.findItem(R.id.action_details)
-        comicDetailViewModel.getComic().observe(viewLifecycleOwner, Observer { comic ->
-            when {
-                comic.detailLink.isNullOrEmpty() -> {
-                    menuItem.isVisible = false
-                }
-                else -> {
-                    menuItem.isVisible = true
-                }
-            }
-
-        })
     }
 }
 
@@ -145,7 +55,6 @@ class ComicDetailListFragment(private val marvelItemType: MarvelItemType) :
     DetailListFragment(marvelItemType) {
 
     private val comicDetailViewModel: ComicDetailViewModel by viewModels({ requireParentFragment() })
-
 
     override fun getDetailListLiveDataPaging(): LiveData<PagingData<MarvelItem>>? {
         return when (marvelItemType) {

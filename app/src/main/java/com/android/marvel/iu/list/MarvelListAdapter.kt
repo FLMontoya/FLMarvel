@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.marvel.databinding.RowMarvelListItemBinding
 import com.android.marvel.model.MarvelItem
+import com.android.marvel.utils.ImageLoadingUtils
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.squareup.picasso.Picasso
 
 
 class MarvelListAdapter(private val listener: MarvelListFragment.MarvelItemListener) :
@@ -45,8 +44,8 @@ class MarvelListAdapter(private val listener: MarvelListFragment.MarvelItemListe
 
         fun bind(marvelItem: MarvelItem) {
             rowMarvelListItemBinding.apply {
-                characterNameTextView.text = marvelItem.name.uppercase()
-                Glide.with(root).load(marvelItem.image).into(characterImageView)
+                marvelItemNameTextView.text = marvelItem.name
+                ImageLoadingUtils.load(marvelItem.image, marvelItemImageView)
                 root.setOnClickListener {
                     listener.onClick(marvelItem)
                 }

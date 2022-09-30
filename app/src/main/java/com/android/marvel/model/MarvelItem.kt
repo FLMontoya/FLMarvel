@@ -8,7 +8,7 @@ data class MarvelItem(
 }
 
 enum class MarvelItemType(private val title: String) {
-    CHARACTER("CHARACTER"), COMIC("COMIC"), SERIE("SERIE"), EVENT("EVENT");
+    CHARACTER("Personajes"), COMIC("Comics"), SERIE("Series"), EVENT("Eventos");
 
     fun getTitle() = title
 }

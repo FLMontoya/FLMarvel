@@ -1,18 +1,23 @@
 package com.android.marvel.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Event(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val imagePath: String,
-    val imageExtension: String,
-    val comicsCount: Int,
-    val eventsCount: Int,
-    val seriesCount: Int,
-    val characterCount: Int,
-    val detailLink: String? = null
-) : Parcelable
+    override val id: Int,
+    override val name: String,
+    override val description: String?,
+    override val imagePath: String,
+    override val imageExtension: String,
+    override val comicsCount: Int = 0,
+    override val eventsCount: Int = 0,
+    override val seriesCount: Int = 0,
+    override val charactersCount: Int = 0,
+    override val detailLink: String? = null,
+    val previousEventName: String?,
+    val previousEventResource: String?,
+    val nextEventName: String?,
+    val nextEventResource: String?
+) : MarvelModel(), Parcelable
+

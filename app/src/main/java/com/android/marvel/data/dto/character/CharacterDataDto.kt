@@ -8,35 +8,25 @@ import com.google.gson.annotations.SerializedName
 
 data class CharacterDataDto(
 
-    @SerializedName("total")
-    val total: Int,
-
-    @SerializedName("offset")
-    val offset: Int,
-
-    @SerializedName("limit")
-    val limit: Int,
-
-    @SerializedName("count")
-    val count: Int,
-    @field:SerializedName("results")
-    val results: List<CharacterDto>
+    @SerializedName("total") val total: Int,
+    @SerializedName("offset") val offset: Int,
+    @SerializedName("limit") val limit: Int,
+    @SerializedName("count") val count: Int,
+    @SerializedName("results") val results: List<CharacterDto>
 )
 
 fun Collection<CharacterDto>.toCharacterModel(): List<Character> {
-    return this.map { characterDto ->
+    return this.map { dto ->
         Character(
-            characterDto.id,
-            characterDto.name,
-            characterDto.description.let {
-                it.ifEmpty() { "Descripción no disponible" }
-            },
-            characterDto.thumbnailDto.path,
-            characterDto.thumbnailDto.extension,
-            characterDto.comicsSummaryDto.available,
-            characterDto.eventsSummaryDto.available,
-            characterDto.seriesSummaryDto.available,
-            characterDto.urlDtoList.find { it.type == "detail" }?.url
+            id = dto.id,
+            name = dto.name,
+            description = dto.description,
+            imagePath = dto.thumbnailDto.path,
+            imageExtension = dto.thumbnailDto.extension,
+            comicsCount = dto.comicsSummaryDto.available,
+            eventsCount = dto.eventsSummaryDto.available,
+            seriesCount = dto.seriesSummaryDto.available,
+            detailLink = dto.urlDtoList.find { it.type == "detail" }?.url
         )
     }
 }
@@ -44,10 +34,10 @@ fun Collection<CharacterDto>.toCharacterModel(): List<Character> {
 fun Collection<CharacterDto>.toDetailItem(): List<MarvelItem> {
     return this.map { dto ->
         MarvelItem(
-            dto.id,
-            dto.name,
-            dto.thumbnailDto.getPortraitUncanny(),
-            MarvelItemType.CHARACTER
+            id = dto.id,
+            name = dto.name,
+            image = dto.thumbnailDto.getPortrait(),
+            marvelItemType = MarvelItemType.CHARACTER
         )
     }
 }

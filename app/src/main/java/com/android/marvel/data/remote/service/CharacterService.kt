@@ -13,42 +13,42 @@ interface CharacterService {
     @GET("characters/{characterId}")
     suspend fun getCharacterById(
         @Path("characterId") characterId: String,
-        @Query("offset") offset: Int? = null,
-        @Query("limit") limit: Int? = null
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): CharacterResponseDto
 
     @GET("characters")
     suspend fun getCharacters(
-        @Query("offset") offset: Int? = null,
-        @Query("limit") limit: Int? = null
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): CharacterResponseDto
 
     @GET("characters")
     suspend fun searchCharacter(
         @Query("nameStartsWith") query: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): CharacterResponseDto
 
     @GET("characters/{characterId}/comics")
     suspend fun getCharacterComics(
         @Path("characterId") characterId: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): ComicResponseDto
 
     @GET("characters/{characterId}/series")
     suspend fun getCharacterSeries(
         @Path("characterId") characterId: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ) : SerieResponseDto
 
     @GET("characters/{characterId}/events")
     suspend fun getCharacterEvents(
         @Path("characterId") characterId: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ) : EventResponseDto
 
 }

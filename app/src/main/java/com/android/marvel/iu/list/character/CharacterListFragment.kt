@@ -1,21 +1,16 @@
 package com.android.marvel.iu.list.character
 
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.android.marvel.R
-import com.android.marvel.iu.detail.character.detail.CharacterDetailFragment
-import com.android.marvel.iu.detail.comic.ComicDetailFragment
+import com.android.marvel.iu.detail.character.CharacterDetailFragment
 import com.android.marvel.iu.list.MarvelListFragment
 import com.android.marvel.model.MarvelItem
 import dagger.hilt.android.AndroidEntryPoint

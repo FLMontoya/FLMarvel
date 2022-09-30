@@ -23,8 +23,6 @@ class MarvelService @Inject constructor() {
         retrofit = initRetrofit()
     }
 
-
-
     private fun initRetrofit(): Retrofit {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
@@ -32,7 +30,6 @@ class MarvelService @Inject constructor() {
         val client = OkHttpClient.Builder()
             .addInterceptor(logger)
             .addInterceptor(getAuthQueryInterceptor())
-
             .build()
         return Retrofit.Builder()
             .client(client)

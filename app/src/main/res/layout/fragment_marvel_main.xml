@@ -21,6 +21,9 @@
                 android:background="@color/marvel_primary"
                 app:tabIndicatorColor="@color/marvel_dark"
                 android:layout_width="match_parent"
+
+                app:tabGravity="fill"
+                app:tabTextAppearance="@style/TabLayoutStyle"
                 android:layout_height="?actionBarSize" />
 
         </androidx.viewpager.widget.ViewPager>

@@ -14,12 +14,4 @@ data class ThumbnailDto(
 
     fun getPortrait() = "$path/portrait_fantastic.$extension"
 
-    //fun getPortraitUncanny() = "$path/portrait_uncanny.$extension"
-    fun getPortraitUncanny() = getPortrait()
-
-    fun getLandscape() = "$path/landscape_xlarge.$extension"
-
-    fun getSquare() = "$path/standard_medium.$extension"
-
-
 }

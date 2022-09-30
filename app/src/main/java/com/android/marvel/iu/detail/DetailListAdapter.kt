@@ -1,5 +1,7 @@
 package com.android.marvel.iu.detail
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -7,7 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.marvel.databinding.RowDetailBinding
 import com.android.marvel.model.MarvelItem
-import com.squareup.picasso.Picasso
+import com.android.marvel.utils.ImageLoadingUtils
+import com.bumptech.glide.Glide
+
 
 
 class DetailListAdapter(private val detailItemListerner: DetailListFragment.DetailItemListerner) :
@@ -21,7 +25,7 @@ class DetailListAdapter(private val detailItemListerner: DetailListFragment.Deta
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailItemViewHolder {
         return DetailItemViewHolder(
-            RowDetailBinding.inflate(LayoutInflater.from(parent.context)),
+            RowDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             detailItemListerner
         )
     }
@@ -44,10 +48,12 @@ class DetailItemViewHolder(
     RecyclerView.ViewHolder(rowDetailBinding.root) {
 
     fun bind(marvelItem: MarvelItem) {
-        rowDetailBinding.detailNameTextView.text = marvelItem.name
-        Picasso.get().load(marvelItem.image).into(rowDetailBinding.detailImageView)
-        rowDetailBinding.root.setOnClickListener {
-            listener.onClick(marvelItem)
+        rowDetailBinding.apply {
+            detailNameTextView.text = marvelItem.name
+            root.setOnClickListener {
+                listener.onClick(marvelItem)
+            }
+            ImageLoadingUtils.load(marvelItem.image, detailImageView)
         }
     }
 

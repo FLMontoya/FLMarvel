@@ -9,8 +9,10 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.marvel.R
 import com.android.marvel.databinding.FragmentDetailListBinding
-import com.android.marvel.iu.detail.character.detail.CharacterDetailFragment
+import com.android.marvel.iu.detail.character.CharacterDetailFragment
 import com.android.marvel.iu.detail.comic.ComicDetailFragment
+import com.android.marvel.iu.detail.event.EventDetailFragment
+import com.android.marvel.iu.detail.serie.SerieDetailFragment
 import com.android.marvel.model.MarvelItem
 import com.android.marvel.model.MarvelItemType
 
@@ -23,7 +25,6 @@ abstract class DetailListFragment(private val marvelItemType: MarvelItemType) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentDetailListBinding.bind(view)
-
     }
 
     abstract fun getDetailListLiveDataPaging(): LiveData<PagingData<MarvelItem>>?
@@ -31,7 +32,6 @@ abstract class DetailListFragment(private val marvelItemType: MarvelItemType) :
     override fun onResume() {
         super.onResume()
         loadDetailItemList()
-
     }
 
     private fun loadDetailItemList() {
@@ -57,30 +57,21 @@ abstract class DetailListFragment(private val marvelItemType: MarvelItemType) :
 
 
     private fun navigateToDetailItem(marvelItem: MarvelItem) {
-
-        when (marvelItem.marvelItemType) {
-            MarvelItemType.COMIC -> {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, ComicDetailFragment(marvelItem.id))
-                    ?.addToBackStack(ComicDetailFragment::class.java.name)?.commit()
-            }
-            MarvelItemType.SERIE -> {
-
-            }
-            MarvelItemType.EVENT -> {
-
-            }
-            MarvelItemType.CHARACTER -> {
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, CharacterDetailFragment(marvelItem.id))
-                    ?.addToBackStack(CharacterDetailFragment::class.java.name)?.commit()
-            }
+        val fragment = when (marvelItem.marvelItemType) {
+            MarvelItemType.CHARACTER -> CharacterDetailFragment(marvelItem.id)
+            MarvelItemType.COMIC -> ComicDetailFragment(marvelItem.id)
+            MarvelItemType.SERIE -> SerieDetailFragment(marvelItem.id)
+            MarvelItemType.EVENT -> EventDetailFragment(marvelItem.id)
         }
+        activity?.supportFragmentManager?.beginTransaction()?.replace(
+            R.id.flContainer,
+            fragment,
+            fragment::class.java.name
+        )?.addToBackStack(fragment::class.java.name)?.commit()
+
     }
 
     interface DetailItemListerner {
-
         fun onClick(marvelItem: MarvelItem)
-
     }
 }

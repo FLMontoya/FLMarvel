@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">FLMMarvel</string>
+    <string name="descripcion">DESCRIPCION</string>
+    <string name="evento_siguiente">Evento Siguiente</string>
+    <string name="evento_anterior">Evento Anterior</string>
+    <string name="serie_siguiente">Serie Siguiente</string>
+    <string name="serie_anterior">Serie Anterior</string>
+    <string name="error_connection">Ha ocurrido un problema al descargar los datos. Compruebe su conexion a internet.</string>
+    <string name="reintentar">Reintentar</string>
+    <string name="error">Error</string>
+    <string name="salir">Salir</string>
 </resources>

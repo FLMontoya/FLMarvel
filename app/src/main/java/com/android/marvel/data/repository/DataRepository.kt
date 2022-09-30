@@ -11,6 +11,7 @@ import com.android.marvel.model.Character
 import com.android.marvel.model.Comic
 import com.android.marvel.model.Event
 import com.android.marvel.model.MarvelItem
+import com.android.marvel.model.Serie
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -82,7 +83,7 @@ class DataRepository @Inject constructor(
         return remoteData.requestComic(comicId)
     }
 
-    override fun searchComics(query: String): Flow<PagingData<MarvelItem>> {
+    override fun getComics(): LiveData<PagingData<MarvelItem>> {
         return Pager(
             config = PagingConfigUtil.getPageConfig(),
             pagingSourceFactory = {
@@ -91,12 +92,11 @@ class DataRepository @Inject constructor(
                         return remoteData.requestComics(
                             page = params.key ?: 0,
                             size = params.loadSize,
-                            query = query
                         )
                     }
                 }
             }
-        ).flow
+        ).liveData
     }
 
     override fun getComicCharacters(comicId: Int): LiveData<PagingData<MarvelItem>> {
@@ -129,6 +129,23 @@ class DataRepository @Inject constructor(
         return remoteData.requestEvent(eventId)
     }
 
+    override fun getEvents(): LiveData<PagingData<MarvelItem>> {
+        return Pager(
+            config = PagingConfigUtil.getPageConfig(),
+            pagingSourceFactory = {
+                object : MarvelPagingSource<MarvelItem>() {
+                    override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
+                        return remoteData.requestEvents(
+                            page = params.key ?: 0,
+                            size = params.loadSize,
+                        )
+                    }
+                }
+            }
+        ).liveData
+    }
+
+
     override fun getEventCharacters(eventId: Int): LiveData<PagingData<MarvelItem>> {
         return Pager(
             config = PagingConfigUtil.getPageConfigDetail(),
@@ -149,6 +166,78 @@ class DataRepository @Inject constructor(
                 object : MarvelPagingSource<MarvelItem>() {
                     override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
                         return remoteData.requestEventComic(eventId, params.key ?: 0, params.loadSize)
+                    }
+                }
+            }
+        ).liveData
+    }
+
+    override fun getEventSerie(eventId: Int): LiveData<PagingData<MarvelItem>> {
+        return Pager(
+            config = PagingConfigUtil.getPageConfigDetail(),
+            pagingSourceFactory = {
+                object : MarvelPagingSource<MarvelItem>() {
+                    override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
+                        return remoteData.requestEventSerie(eventId, params.key ?: 0, params.loadSize)
+                    }
+                }
+            }
+        ).liveData
+    }
+
+    override suspend fun getSerie(serieId: Int): Serie {
+        return remoteData.requestSerie(serieId)
+    }
+
+    override fun getSeries(): LiveData<PagingData<MarvelItem>> {
+        return Pager(
+            config = PagingConfigUtil.getPageConfig(),
+            pagingSourceFactory = {
+                object : MarvelPagingSource<MarvelItem>() {
+                    override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
+                        return remoteData.requestSeries(
+                            page = params.key ?: 0,
+                            size = params.loadSize,
+                        )
+                    }
+                }
+            }
+        ).liveData
+    }
+
+    override fun getSerieCharacters(serieId: Int): LiveData<PagingData<MarvelItem>> {
+        return Pager(
+            config = PagingConfigUtil.getPageConfigDetail(),
+            pagingSourceFactory = {
+                object : MarvelPagingSource<MarvelItem>() {
+                    override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
+                        return remoteData.requestSerieCharacter(serieId, params.key ?: 0, params.loadSize)
+                    }
+                }
+            }
+        ).liveData
+    }
+
+    override fun getSerieComic(serieId: Int): LiveData<PagingData<MarvelItem>> {
+        return Pager(
+            config = PagingConfigUtil.getPageConfigDetail(),
+            pagingSourceFactory = {
+                object : MarvelPagingSource<MarvelItem>() {
+                    override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
+                        return remoteData.requestSerieComic(serieId, params.key ?: 0, params.loadSize)
+                    }
+                }
+            }
+        ).liveData
+    }
+
+    override fun getSerieEvent(serieId: Int): LiveData<PagingData<MarvelItem>> {
+        return Pager(
+            config = PagingConfigUtil.getPageConfigDetail(),
+            pagingSourceFactory = {
+                object : MarvelPagingSource<MarvelItem>() {
+                    override suspend fun getResponse(params: LoadParams<Int>): List<MarvelItem> {
+                        return remoteData.requestSerieEvent(serieId, params.key ?: 0, params.loadSize)
                     }
                 }
             }

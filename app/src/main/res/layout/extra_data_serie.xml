@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="5dp"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/previousSerie"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/detail_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/serie_anterior"
+            android:textSize="18sp"
+            app:fontFamily="@font/avengeance" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/previousSerieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/nextSerie"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/detail_button"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/serie_siguiente"
+            android:textSize="18sp"
+            app:fontFamily="@font/avengeance" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nextSerieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>
+

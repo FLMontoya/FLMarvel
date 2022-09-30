@@ -11,36 +11,36 @@ interface ComicService {
 
     @GET("comics")
     suspend fun getComics(
-        @Query("offset") offset: Int? = null,
-        @Query("limit") limit: Int? = null
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): ComicResponseDto
 
     @GET("comics")
     suspend fun searchComics(
         @Query("titleStartsWith") query: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): ComicResponseDto
 
     @GET("comics/{comicId}")
     suspend fun getComic(
         @Path("comicId") comicId: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): ComicResponseDto
 
     @GET("comics/{comicId}/characters")
     suspend fun getComicCharacters(
         @Path("comicId") comicId: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): CharacterResponseDto
 
     @GET("comics/{comicId}/events")
     suspend fun getComicEvents(
         @Path("comicId") comicId: String,
-        @Query("offset") offset: Int? = 0,
-        @Query("limit") limit: Int? = 20
+        @Query("offset") offset: Int?,
+        @Query("limit") limit: Int?
     ): EventResponseDto
 
 }

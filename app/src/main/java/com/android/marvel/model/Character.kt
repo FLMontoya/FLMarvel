@@ -5,26 +5,14 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Character(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val imagePath: String,
-    val imageExtension: String,
-    val comicsCount: Int,
-    val eventsCount: Int,
-    val seriesCount: Int,
-    val detailLink: String? = null
-) : Parcelable {
-
-    fun getPortrait() = "$imagePath/portrait_medium.$imageExtension"
-
-    fun getPortraitUncanny() = "$imagePath/portrait_uncanny.$imageExtension"
-
-    fun getLandscape() = "$imagePath/landscape_xlarge.$imageExtension"
-
-    fun getSquare() = "$imagePath/standard_medium.$imageExtension"
-
-    fun getDetail() = "$imagePath/detail.$imageExtension"
-
-
-}
+    override val id: Int,
+    override val name: String,
+    override val description: String?,
+    override val imagePath: String,
+    override val imageExtension: String,
+    override val comicsCount: Int = 0,
+    override val eventsCount: Int = 0,
+    override val seriesCount: Int = 0,
+    override val charactersCount: Int = 0,
+    override val detailLink: String? = null
+) : MarvelModel(), Parcelable

@@ -14,10 +14,14 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.marvel.R
 import com.android.marvel.databinding.FragmentMarvelListBinding
-
-import com.android.marvel.iu.detail.character.detail.CharacterDetailFragment
-import com.android.marvel.model.Character
 import com.android.marvel.model.MarvelItem
+import com.example.awesomedialog.AwesomeDialog
+import com.example.awesomedialog.background
+import com.example.awesomedialog.body
+import com.example.awesomedialog.icon
+import com.example.awesomedialog.onNegative
+import com.example.awesomedialog.onPositive
+import com.example.awesomedialog.title
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,13 +40,29 @@ abstract class MarvelListFragment : Fragment(R.layout.fragment_marvel_list), Men
         context?.let {
             val marvelListAdapter = MarvelListAdapter(object : MarvelItemListener {
                 override fun onClick(marvelItem: MarvelItem) {
-
+                    navigateToMarvelItemDetail(marvelItem)
                 }
             }).apply {
                 addLoadStateListener { loadState ->
                     binding.apply {
+                        loadState.refresh
                         progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                         characterRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                        if (loadState.source.refresh is LoadState.Error) {
+                            activity?.let {
+                                AwesomeDialog.build(it)
+                                    .title(getString(R.string.error))
+                                    .background(R.color.marvel_dark)
+                                    .body(getString(R.string.error_connection))
+                                    .icon(com.google.android.material.R.drawable.mtrl_ic_error)
+                                    .onNegative(getString(R.string.salir)) {
+                                        it.finish()
+                                    }
+                                    .onPositive(getString(R.string.reintentar)) {
+                                        retry()
+                                    }
+                            }
+                        }
                     }
                 }
             }
@@ -53,20 +73,9 @@ abstract class MarvelListFragment : Fragment(R.layout.fragment_marvel_list), Men
                 setHasFixedSize(true)
             }
 
-            getMarvelItemLiveDataPaging().observe(viewLifecycleOwner, Observer {pagingData ->
+            getMarvelItemLiveDataPaging().observe(viewLifecycleOwner, Observer { pagingData ->
                 marvelListAdapter.submitData(lifecycle, pagingData)
             })
-        }
-    }
-
-
-    private fun navigateToCharacterDetailFragment(character: Character) {
-        activity?.let {
-            val characterDetailFragment = CharacterDetailFragment(character.id)
-            it.supportFragmentManager.beginTransaction()
-                .replace(R.id.flContainer, characterDetailFragment)
-                .addToBackStack(CharacterDetailFragment::class.java.name)
-                .commit()
         }
     }
 

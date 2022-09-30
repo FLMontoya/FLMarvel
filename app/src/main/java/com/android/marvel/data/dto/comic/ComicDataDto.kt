@@ -7,49 +7,38 @@ import com.google.gson.annotations.SerializedName
 
 data class ComicDataDto(
 
-    @SerializedName("total")
-    val total: Int,
-
-    @SerializedName("offset")
-    val offset: Int,
-
-    @SerializedName("limit")
-    val limit: Int,
-
-    @SerializedName("count")
-    val count: Int,
-
-    @SerializedName("results")
-    val results: List<ComicDto>
+    @SerializedName("total") val total: Int,
+    @SerializedName("offset") val offset: Int,
+    @SerializedName("limit") val limit: Int,
+    @SerializedName("count") val count: Int,
+    @SerializedName("results") val results: List<ComicDto>
 )
 
 fun Collection<ComicDto>.toDetailItem(): List<MarvelItem> {
     return this.map { dto ->
         MarvelItem(
-            dto.id,
-            dto.title,
-            dto.thumbnailDto.getPortraitUncanny(),
-            MarvelItemType.COMIC
+            id = dto.id,
+            name = dto.title,
+            image = dto.thumbnailDto.getPortrait(),
+            marvelItemType = MarvelItemType.COMIC
         )
     }
 }
 
 fun Collection<ComicDto>.toModel(): List<Comic> {
     return this.map { dto ->
-        Comic(dto.id,
-            dto.title,
-            description = if (dto.description.isNullOrEmpty()) {
-                "Descripción no disponible"
-            } else {
-                dto.description
-            },
-            dto.thumbnailDto.path,
-            dto.thumbnailDto.extension,
-            0,
-            dto.eventsSummaryDto.available,
-            dto.seriesSummaryDto.available,
-            dto.characterSummaryDto.available,
-            dto.urlDtos.find { it.type == "detail" }?.url
+        Comic(
+            id = dto.id,
+            name = dto.title,
+            description = dto.description,
+            imagePath = dto.thumbnailDto.path,
+            imageExtension = dto.thumbnailDto.extension,
+            eventsCount = dto.eventsSummaryDto.available,
+            seriesCount = dto.seriesSummaryDto.available,
+            charactersCount = dto.characterSummaryDto.available,
+            detailLink = dto.urlDtos.find { it.type == "detail" }?.url,
+            numPages = dto.pageCount.toString(),
+            price = dto.prices.first().price.toString(),
         )
     }
 }
