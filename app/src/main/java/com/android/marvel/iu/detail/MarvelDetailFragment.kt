@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.android.marvel.R
 import com.android.marvel.databinding.FragmentMarvelDetailBinding
-import com.android.marvel.databinding.LayoutDetailListItemBinding
 import com.android.marvel.model.MarvelItemType
 import com.android.marvel.model.MarvelModel
 import com.bumptech.glide.Glide

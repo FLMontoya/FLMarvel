@@ -8,11 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.android.marvel.R
-import com.android.marvel.iu.detail.comic.ComicDetailFragment
 import com.android.marvel.iu.detail.serie.SerieDetailFragment
 import com.android.marvel.iu.list.MarvelListFragment
-import com.android.marvel.iu.list.comic.ComicListViewModel
-import com.android.marvel.iu.list.event.EventListViewModel
 import com.android.marvel.model.MarvelItem
 import dagger.hilt.android.AndroidEntryPoint
 

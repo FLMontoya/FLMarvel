@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.marvel.databinding.RowMarvelListItemBinding
 import com.android.marvel.model.MarvelItem
 import com.android.marvel.utils.ImageLoadingUtils
-import com.bumptech.glide.Glide
 
 
 class MarvelListAdapter(private val listener: MarvelListFragment.MarvelItemListener) :

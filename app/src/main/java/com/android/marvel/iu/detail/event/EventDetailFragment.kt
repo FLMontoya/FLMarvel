@@ -9,11 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagingData
-import com.android.marvel.R
 import com.android.marvel.databinding.ExtraDataEventBinding
 import com.android.marvel.iu.detail.DetailListFragment
 import com.android.marvel.iu.detail.MarvelDetailFragment
-import com.android.marvel.iu.detail.character.CharacterDetailFragment
 import com.android.marvel.model.Event
 import com.android.marvel.model.MarvelItem
 import com.android.marvel.model.MarvelItemType

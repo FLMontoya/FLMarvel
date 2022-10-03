@@ -7,17 +7,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagingData
-import com.android.marvel.R
 import com.android.marvel.databinding.ExtraDataComicBinding
-import com.android.marvel.databinding.FragmentComicDetailBinding
 import com.android.marvel.iu.detail.DetailListFragment
 import com.android.marvel.iu.detail.MarvelDetailFragment
 import com.android.marvel.model.Comic
 import com.android.marvel.model.MarvelItem
 import com.android.marvel.model.MarvelItemType
 import com.android.marvel.model.MarvelModel
-import com.android.marvel.utils.ImageLoadingUtils
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

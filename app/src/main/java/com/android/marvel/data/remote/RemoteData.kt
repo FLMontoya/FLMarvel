@@ -1,6 +1,5 @@
 package com.android.marvel.data.remote
 
-import com.android.marvel.data.dto.character.CharacterResponseDto
 import com.android.marvel.data.dto.character.toCharacterModel
 import com.android.marvel.data.dto.character.toDetailItem
 import com.android.marvel.data.dto.comic.toDetailItem

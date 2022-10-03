@@ -2,7 +2,6 @@ package com.android.marvel.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
-import com.android.marvel.data.dto.character.CharacterResponseDto
 import com.android.marvel.model.Character
 import com.android.marvel.model.Comic
 import com.android.marvel.model.Event

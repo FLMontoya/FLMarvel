@@ -1,7 +1,5 @@
 package com.android.marvel.iu.detail
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -10,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.marvel.databinding.RowDetailBinding
 import com.android.marvel.model.MarvelItem
 import com.android.marvel.utils.ImageLoadingUtils
-import com.bumptech.glide.Glide
-
 
 
 class DetailListAdapter(private val detailItemListerner: DetailListFragment.DetailItemListerner) :
