@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.android.marvel.data.dto.character.CharacterResponseDto
 import com.android.marvel.data.paging.MarvelPagingSource
 import com.android.marvel.data.paging.PagingConfigUtil
 import com.android.marvel.data.remote.RemoteData

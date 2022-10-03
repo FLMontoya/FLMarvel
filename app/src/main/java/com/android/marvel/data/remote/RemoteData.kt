@@ -1,5 +1,6 @@
 package com.android.marvel.data.remote
 
+import com.android.marvel.data.dto.character.CharacterResponseDto
 import com.android.marvel.data.dto.character.toCharacterModel
 import com.android.marvel.data.dto.character.toDetailItem
 import com.android.marvel.data.dto.comic.toDetailItem
@@ -28,6 +29,7 @@ class RemoteData @Inject constructor(
         val characterService = marvelService.createService(CharacterService::class.java)
         return characterService.getCharacterById(characterId.toString(), 0, 1)
             .dataDto.results.toCharacterModel().first()
+
     }
 
     /**
